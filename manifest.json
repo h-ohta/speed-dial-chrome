@@ -12,7 +12,7 @@
 	"name": "Simple Speed Dial",
 	"options_page": "options.html",
 	"permissions": [ "bookmarks", "storage" ],
-	"background": { "service_worker": [ "javascript/eventPage.js" ] },
+	"background": { "service_worker": "javascript/eventPage.js" },
 	"update_url": "http://clients2.google.com/service/update2/crx",
 	"version": "2.5.0"
 }
