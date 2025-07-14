@@ -11,8 +11,8 @@
 	"manifest_version": 3,
 	"name": "Simple Speed Dial",
 	"options_page": "options.html",
-	"permissions": [ "background", "bookmarks", "storage" ],
-	"background": { "scripts": [ "javascript/eventPage.js" ], "persistent": false },
+	"permissions": [ "bookmarks", "storage" ],
+	"background": { "service_worker": [ "javascript/eventPage.js" ] },
 	"update_url": "http://clients2.google.com/service/update2/crx",
 	"version": "2.5.0"
 }
