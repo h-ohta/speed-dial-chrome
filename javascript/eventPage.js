@@ -1,25 +1,30 @@
 // Restore settings from chrome.storage.sync API
 function restoreFromSync() {
 	chrome.storage.sync.get(null, function (sync_object) {
-		Object.keys(sync_object).forEach(function(key) {
-			localStorage.setItem(key, sync_object[key]);
-		});
-		window.location.reload();
+        chrome.storage.local.set(sync_object, function() {
+            console.log('Settings restored from sync.');
+            window.location.reload();
+        });
 	});
 }
 
 // Sync settings to chrome.storage.sync API
 function syncToStorage() {
-	var settings_object = {};
-	Object.keys(localStorage).forEach(function(key) {
-		settings_object[key] = localStorage[key];
-	});
-	chrome.storage.sync.set(settings_object);
+chrome.storage.local.get(null, function(local_object) {
+        chrome.storage.sync.set(local_object, function() {
+            console.log('Settings synced to storage.');
+        });
+    });
 }
 
 // Listen for sync events and update from synchronized data
-if (localStorage.getItem("enable_sync") === "true") {
-	chrome.storage.onChanged.addListener(function() {
-		restoreFromSync();
-	});
-}
+chrome.storage.local.get(['enable_sync'], function(result) {
+    if (result.enable_sync === true) {
+        chrome.storage.onChanged.addListener(function(changes, namespace) {
+            if (namespace === 'sync') {
+                console.log('Sync data changed. Restoring...');
+                restoreFromSync();
+            }
+        });
+    }
+});
