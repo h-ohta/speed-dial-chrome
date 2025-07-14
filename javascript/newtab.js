@@ -135,6 +135,14 @@ function getThumbnailUrl(bookmark) {
 	if (JSON.parse(localStorage.getItem("custom_icon_data"))[bookmark.url]) {
 		return JSON.parse(localStorage.getItem("custom_icon_data"))[bookmark.url];
 	}
+
+	const defaultIcons = JSON.parse(localStorage.getItem("default_icon_data"));
+	for (const domain in defaultIcons) {
+		if (bookmark.url.includes(domain)) {
+			return defaultIcons[domain];
+		}
+	}
+
 	if (localStorage.getItem("force_http") === "true") {
 		bookmark.url = bookmark.url.replace("https", "http");
 	}
