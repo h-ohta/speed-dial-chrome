@@ -68,7 +68,10 @@ function createDefaults() {
 		show_new_entry: "true",
 		show_options_gear: "true",
 		show_subfolder_icons: "true",
-		thumbnailing_service: "http://api.webthumbnail.org/?width=500&height=400&screen=1280&url=[URL]"
+		thumbnailing_service: "http://api.webthumbnail.org/?width=500&height=400&screen=1280&url=[URL]",
+		default_icon_data: JSON.stringify({
+			"github.com": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+		}, null, 2)
 	};
 
 	// Creates default localStorage values if they don't already exist
