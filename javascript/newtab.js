@@ -136,17 +136,22 @@ function getThumbnailUrl(bookmark) {
 		return JSON.parse(localStorage.getItem("custom_icon_data"))[bookmark.url];
 	}
 
-	const defaultIcons = JSON.parse(localStorage.getItem("default_icon_data"));
-	for (const domain in defaultIcons) {
-		if (bookmark.url.includes(domain)) {
-			return defaultIcons[domain];
+	const use_thumbnail = JSON.parse(localStorage.getItem("use_thumbnail") || '{}');
+	if (use_thumbnail[bookmark.url] === true) {
+		let urlForThumbnail = bookmark.url;
+		if (localStorage.getItem("force_http") === "true") {
+			urlForThumbnail = urlForThumbnail.replace("https", "http");
 		}
+		return localStorage.getItem("thumbnailing_service").replace("[URL]", urlForThumbnail);
 	}
 
-	if (localStorage.getItem("force_http") === "true") {
-		bookmark.url = bookmark.url.replace("https", "http");
+	try {
+		const domain = new URL(bookmark.url).hostname;
+		return `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=128`;
+	} catch (e) {
+		console.warn("Could not create URL for bookmark:", bookmark.title, e);
+		return "";
 	}
-	return localStorage.getItem("thumbnailing_service").replace("[URL]", bookmark.url);
 }
 
 function showBookmarkEntryForm(heading, title, url, target) {
@@ -158,15 +163,19 @@ function showBookmarkEntryForm(heading, title, url, target) {
 	form.find(".url").prop("value", url || "");
 	form.find(".icon").prop("value", JSON.parse(localStorage.getItem("custom_icon_data"))[url] || "");
 	form.prop("target", target);
+	const use_thumbnail = JSON.parse(localStorage.getItem("use_thumbnail") || '{}');
+	form.find(".thumbnail").prop("checked", use_thumbnail[url] === true);
 
 	// Selectors to hide URL & custom icon fields when editing a folder name
 	if (form.find("h1").text().indexOf("Edit Folder") > -1) {
 		form.find("p").eq(1).hide();
 		form.find("p").eq(2).hide();
+		form.find("p").eq(3).hide();
 	}
 	// Selectors to hide the cusom icon field when adding a new entry
 	if (form.find("h1").text().indexOf("New") > -1) {
 		form.find("p").eq(2).hide();
+		form.find("p").eq(3).hide();
 	}
 
 	form.reveal();
