@@ -170,10 +170,12 @@ function showBookmarkEntryForm(heading, title, url, target) {
 	if (form.find("h1").text().indexOf("Edit Folder") > -1) {
 		form.find("p").eq(1).hide();
 		form.find("p").eq(2).hide();
+		form.find("p").eq(3).hide();
 	}
 	// Selectors to hide the cusom icon field when adding a new entry
 	if (form.find("h1").text().indexOf("New") > -1) {
 		form.find("p").eq(2).hide();
+		form.find("p").eq(3).hide();
 	}
 
 	form.reveal();
