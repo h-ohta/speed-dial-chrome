@@ -14,5 +14,5 @@
     "permissions": ["bookmarks", "storage"],
     "background": { "service_worker": "javascript/eventPage.js" },
     "update_url": "http://clients2.google.com/service/update2/crx",
-    "version": "0.0.1"
+    "version": "3.0.0"
 }
