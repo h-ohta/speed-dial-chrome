@@ -66,6 +66,16 @@ function updateBookmark(id, title, url) {
 
 	if (hash !== undefined) {
 		chrome.bookmarks.update(id, hash, function(result) {
+			const use_thumbnail = JSON.parse(localStorage.getItem("use_thumbnail") || '{}');
+			const use_thumbnail_checked = $("#bookmark_form .thumbnail").prop("checked");
+
+			if (use_thumbnail_checked) {
+				use_thumbnail[url] = true; // 有効ならリストに追加
+			} else {
+				delete use_thumbnail[url]; // 無効ならリストから削除
+			}
+			localStorage.setItem("use_thumbnail", JSON.stringify(use_thumbnail));
+
 			$("#" + result.id).find(".bookmark").prop({
 				"title": result.title,
 				"href": result.url

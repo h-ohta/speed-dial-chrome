@@ -101,17 +101,29 @@ td {
 	font-size: 1.5em;
 }
 
-#bookmark_form span {
-	display: inline-block;
-	padding: 0 5px;
-	text-align: right;
-	width: 110px;
-	margin-left: -20px;
+#bookmark_form p {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
-#bookmark_form input {
-	padding: 0 5px;
+#bookmark_form span {
+	width: 120px;
+	text-align: right;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+#bookmark_form input[type="text"],
+#bookmark_form input[type="color"] {
 	width: 300px;
+	padding: 5px;
+}
+
+#bookmark_form input[type="checkbox"] {
+	width: auto;
+	height: auto;
+	margin: 0;
 }
 
 #bookmark_form button {

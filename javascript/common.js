@@ -52,6 +52,8 @@ function getStartingFolder() {
 
 // Create default localStorage values if they don't already exist
 function createDefaults() {
+	let defaultThumbnailingService = "https://image.thum.io/get/width/600/crop/800/[URL]";
+
 	var default_values = {
 		background_color: "#cccccc",
 		custom_icon_data: "{}",
@@ -68,10 +70,9 @@ function createDefaults() {
 		show_new_entry: "true",
 		show_options_gear: "true",
 		show_subfolder_icons: "true",
-		thumbnailing_service: "http://api.webthumbnail.org/?width=500&height=400&screen=1280&url=[URL]",
-		default_icon_data: JSON.stringify({
-			"github.com": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
-		}, null, 2)
+		thumbnailing_service: defaultThumbnailingService,
+		use_thumbnail: "{}",
+
 	};
 
 	// Creates default localStorage values if they don't already exist
@@ -83,7 +84,7 @@ function createDefaults() {
 
 	// TODO remove at some point, this will convert everyone to the new thumbnailing API
 	if (localStorage.getItem("thumbnailing_service").indexOf("immediatenet.com") > 0) {
-		localStorage.setItem("thumbnailing_service", "http://api.webthumbnail.org/?width=500&height=400&screen=1280&url=[URL]");
+		localStorage.setItem("thumbnailing_service", defaultThumbnailingService);
 	}
 }
 

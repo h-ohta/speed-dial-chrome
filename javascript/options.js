@@ -16,7 +16,6 @@ function restoreOptions() {
 	$("#show_options_gear").prop("checked", localStorage.getItem("show_options_gear") === "true");
 	$("#show_subfolder_icons").prop("checked", localStorage.getItem("show_subfolder_icons") === "true");
 	$("#thumbnailing_service").prop("value", localStorage.getItem("thumbnailing_service"));
-	$("#default_icon_data").prop("value", JSON.stringify(JSON.parse(localStorage.getItem("default_icon_data")), null, 2));
 }
 
 // Write selected options back to local storage
@@ -37,7 +36,6 @@ function saveOptions() {
 	localStorage.setItem("show_options_gear", $("#show_options_gear").prop("checked"));
 	localStorage.setItem("show_subfolder_icons", $("#show_subfolder_icons").prop("checked"));
 	localStorage.setItem("thumbnailing_service", $("#thumbnailing_service").prop("value"));
-	localStorage.setItem("default_icon_data", JSON.stringify(JSON.parse($("#default_icon_data").prop("value"))));
 
 	if (localStorage.getItem("enable_sync") === "true") {
 		syncToStorage();
