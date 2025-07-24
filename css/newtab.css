@@ -31,6 +31,8 @@ body {
     height: 100%;
     width: 100%;
     text-decoration: none;
+    padding-top: 2px;
+    box-sizing: border-box;
 }
 
 .entry .bookmark:hover {
